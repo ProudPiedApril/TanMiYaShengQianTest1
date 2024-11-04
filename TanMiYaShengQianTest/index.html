@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的网页</title>
+    <style>
+        /* 页面基本样式 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            height: 100vh;
+        }
+
+        /* 容器 */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+        }
+
+        /* 图片样式 */
+        .image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        /* 封面按钮组，位于封面图片的右下角 */
+        .cover-button-group {
+            position: absolute;
+            bottom: 10%; /* 使用百分比 */
+            right: 5%;   /* 使用百分比 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cover-button {
+            width: 60px;
+            height: 60px;
+            margin: 15px 0;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 知识问答按钮组，位于 question1 中央 */
+        .quiz-button-group {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quiz-button {
+			width: 60px;
+			height: 20px;
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .quiz-button span {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+
+        /* 隐藏内容区域 */
+        .content {
+            display: none;
+        }
+
+        /* 标题样式 */
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 20px 0;
+        }
+    </style>
+    <script>
+        function showContent(sectionId) {
+            // 隐藏封面和按钮
+            document.getElementById('cover').style.display = 'none';
+            document.getElementById('coverButtonGroup').style.display = 'none';
+
+            // 显示对应的内容区域
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function showQuestion2() {
+            // 切换到第二个问答图片
+            document.getElementById('question1').style.display = 'none';
+            document.getElementById('question2').style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- 封面图片 -->
+        <div id="cover">
+            <img src="img/title.png" alt="封面" class="image">
+            <!-- 封面按钮组 -->
+            <div id="coverButtonGroup" class="cover-button-group">
+                <img src="img/button.png" alt="传说故事" class="cover-button" onclick="showContent('story')">
+                <img src="img/button.png" alt="知识问答" class="cover-button" onclick="showContent('quiz')">
+                <img src="img/button.png" alt="制作压胜钱" class="cover-button" onclick="showContent('coin')">
+            </div>
+        </div>
+
+        <!-- 传说故事内容 -->
+        <div id="story" class="content">
+            <h1>传说故事</h1>
+            <img src="img/story1.png" alt="传说故事1" class="image">
+            <img src="img/story2.jpg" alt="传说故事2" class="image">
+        </div>
+
+        <!-- 知识问答内容 -->
+        <div id="quiz" class="content">
+            <h1>知识问答</h1>
+            <div id="question1" style="position: relative;">
+                <img src="img/question1.jpg" alt="知识问答1" class="image">
+                <!-- 问答按钮组在 question1 图片中央 -->
+                <div class="quiz-button-group">
+                    <div class="quiz-button" onclick="showQuestion2()">
+                        <img src="img/button.png" alt="A" width="30" height="30">
+                        <span>A</span>
+                    </div>
+                    <div class="quiz-button" onclick="showQuestion2()">
+                        <img src="img/button.png" alt="B" width="30" height="30">
+                        <span>B</span>
+                    </div>
+                    <div class="quiz-button" onclick="showQuestion2()">
+                        <img src="img/button.png" alt="C" width="30" height="30">
+                        <span>C</span>
+                    </div>
+                </div>
+            </div>
+            <div id="question2" style="display: none;">
+                <img src="img/question2.jpg" alt="知识问答2" class="image">
+            </div>
+        </div>
+
+        <!-- 制作压胜钱内容 -->
+        <div id="coin" class="content">
+            <h1>制作压胜钱</h1>
+            <img src="img/coin.png" alt="制作压胜钱" class="image">
+        </div>
+    </div>
+</body>
+</html>
