@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的网页</title>
+    <title>探秘压胜钱</title>
     <style>
         /* 页面基本样式 */
         body, html {
             margin: 0;
             padding: 0;
+            overflow: hidden; /* 禁用页面滚动条 */
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background: url('img/your-background-image.jpg') no-repeat center center fixed;
+            background-size: cover; /* 背景图片自动调整 */
             height: 100vh;
+            width: 100vw;
         }
 
         /* 容器 */
@@ -26,6 +28,8 @@
             box-sizing: border-box;
             text-align: center;
             position: relative;
+            background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+            border-radius: 8px;
         }
 
         /* 图片样式 */
@@ -55,6 +59,37 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
+        /* 传说故事滚动区域 */
+        #story {
+            display: none;
+            height: 100vh;
+            overflow-y: scroll; /* 启用滚动 */
+            -webkit-overflow-scrolling: touch; /* 平滑滚动 */
+            padding-bottom: 20px;
+        }
+
+        /* 隐藏滚动条 */
+        #story::-webkit-scrollbar {
+            display: none; /* 隐藏滚动条 */
+        }
+
+        /* 封面底部的“进入传说故事”按钮 */
+        .enter-story-button {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
         /* 知识问答按钮组，位于 question1 中央 */
         .quiz-button-group {
             position: absolute;
@@ -67,8 +102,8 @@
         }
 
         .quiz-button {
-			width: 60px;
-			height: 20px;
+            width: 60px;
+            height: 20px;
             display: flex;
             align-items: center;
             margin: 10px 0;
@@ -120,9 +155,11 @@
                 <img src="img/button.png" alt="知识问答" class="cover-button" onclick="showContent('quiz')">
                 <img src="img/button.png" alt="制作压胜钱" class="cover-button" onclick="showContent('coin')">
             </div>
+            <!-- 进入传说故事按钮 -->
+            <button class="enter-story-button" onclick="showContent('story')">点击开始</button>
         </div>
 
-        <!-- 传说故事内容 -->
+        <!-- 传说故事内容，支持滚动 -->
         <div id="story" class="content">
             <h1>传说故事</h1>
             <img src="img/story1.png" alt="传说故事1" class="image">
@@ -134,7 +171,6 @@
             <h1>知识问答</h1>
             <div id="question1" style="position: relative;">
                 <img src="img/question1.jpg" alt="知识问答1" class="image">
-                <!-- 问答按钮组在 question1 图片中央 -->
                 <div class="quiz-button-group">
                     <div class="quiz-button" onclick="showQuestion2()">
                         <img src="img/button.png" alt="A" width="30" height="30">
