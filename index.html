@@ -1,201 +1,367 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>探秘压胜钱</title>
+    <title>传说故事</title>
     <style>
-        /* 页面基本样式 */
+        /* 基本样式 */
         body, html {
+            height: 100%;
             margin: 0;
-            padding: 0;
-            overflow: hidden; /* 禁用页面滚动条 */
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-family: Arial, sans-serif;
-            background: url('img/your-background-image.jpg') no-repeat center center fixed;
-            background-size: cover; /* 背景图片自动调整 */
-            height: 100vh;
-            width: 100vw;
+            align-items: center;
+            overflow: hidden;
         }
 
-        /* 容器 */
-        .container {
-            width: 100%;
-            max-width: 600px;
-            padding: 10px;
-            box-sizing: border-box;
-            text-align: center;
-            position: relative;
-            background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
-            border-radius: 8px;
-        }
-
-        /* 图片样式 */
-        .image {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            position: relative;
-        }
-
-        /* 封面按钮组，位于封面图片的右下角 */
-        .cover-button-group {
+        .page {
             position: absolute;
-            bottom: 10%; /* 使用百分比 */
-            right: 5%;   /* 使用百分比 */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cover-button {
-            width: 60px;
-            height: 60px;
-            margin: 15px 0;
-            cursor: pointer;
-            border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        /* 传说故事滚动区域 */
-        #story {
+            width: 100%;
+            height: 100%;
             display: none;
-            height: 100vh;
-            overflow-y: scroll; /* 启用滚动 */
-            -webkit-overflow-scrolling: touch; /* 平滑滚动 */
-            padding-bottom: 20px;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
 
-        /* 隐藏滚动条 */
-        #story::-webkit-scrollbar {
-            display: none; /* 隐藏滚动条 */
+        .show {
+            display: flex;
         }
 
-        /* 封面底部的“进入传说故事”按钮 */
-        .enter-story-button {
+        .page img {
             position: absolute;
-            bottom: 10%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* 加载页 */
+        #loadingPage {
+            background: url('img/探秘压胜钱图片/加载页 背景.png') no-repeat center center;
+            background-size: contain;
+        }
+
+        #loadingPage #coin {
+            top: 10%;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
-            height: 40px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* 知识问答按钮组，位于 question1 中央 */
-        .quiz-button-group {
-            position: absolute;
-            top: 50%;
+        #loadingPage #wave {
+            top: 20%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            transform: translateX(-50%);
+            opacity: 0.5;
         }
 
-        .quiz-button {
-            width: 60px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            cursor: pointer;
+        /* 初始页 */
+        #initialPage {
+            background: url('img/探秘压胜钱图片/初始页 背景.png') no-repeat center center;
+            background-size: contain;
         }
 
-        .quiz-button span {
-            font-size: 20px;
-            margin-left: 10px;
+        #initialPage #startBtn {
+            top:100%;
+            left: 45%;
+			transform: scale(0.75) translateY(75%);
+            
         }
 
-        /* 隐藏内容区域 */
-        .content {
+        /* 引导页 */
+        #guidePage1 {
+            background: url('img/探秘压胜钱图片/引导页1.png') no-repeat center center;
+            background-size: contain;
+        }
+
+        /* 传说故事1 */
+        #story1Page {
+            background: url('img/探秘压胜钱图片/传说故事1 背景.png') no-repeat center center;
+            background-size: contain;
+        }
+
+        #story1Page #story1Char {
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
             display: none;
         }
 
-        /* 标题样式 */
-        h1 {
-            font-size: 24px;
-            color: #333;
-            margin: 20px 0;
+        /* 传说故事2 */
+        #story2Page {
+            background: url('img/探秘压胜钱图片/传说故事2 背景.png') no-repeat center center;
+            background-size: contain;
+        }
+
+        #story2Page #story2Char {
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        #story2Page #story2Popup {
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        /* 小互动 */
+        #interactivePage {
+            background: url('img/探秘压胜钱图片/小互动 背景.png') no-repeat center center;
+            background-size: contain;
+        }
+
+        #interactivePage #pressMoney {
+            top: 40%;
+            left: 30%;
+			transform: translateX(50%)
+        }
+
+        #interactivePage #redCloth {
+            top: 40%;
+            left: 60%;
+			transform: translateX(-150%);
+        }
+
+        #interactivePage #interactiveCompleted {
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+
+        /* 分享页 */
+        #sharePage {
+            background: url('img/探秘压胜钱图片/分享页.png') no-repeat center center;
+            background-size: contain;
+        }
+
+        /* 响应式设计 - 针对手机和小屏幕设备 */
+        @media (max-width: 768px) {
+            .page img {
+                max-width: 90%;
+                max-height: 90%;
+            }
+
+            /* 加载页中的铜钱和水波位置调整 */
+            #loadingPage #coin {
+                top: 15%;
+            }
+
+            #loadingPage #wave {
+                top: 25%;
+            }
+
+            /* 初始页按钮 */
+            #initialPage #startBtn {
+                top: 100%;
+            }
+
+            /* 传说故事页面元素位置调整 */
+            #story1Page #story1Char,
+            #story2Page #story2Char,
+            #story2Page #story2Popup {
+                top: 25%;
+            }
+
+            #interactivePage #pressMoney {
+                top: 45%;
+                left: 25%;
+            }
+
+            #interactivePage #redCloth {
+                top: 45%;
+                left: 75%;
+            }
+
+            #interactivePage #interactiveCompleted {
+                top: 70%;
+            }
+        }
+
+        /* 响应式设计 - 针对平板电脑 */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .page img {
+                max-width: 80%;
+                max-height: 80%;
+            }
+
+            #loadingPage #coin {
+                top: 12%;
+            }
+
+            #loadingPage #wave {
+                top: 22%;
+            }
+
+            #initialPage #startBtn {
+                top: 72%;
+            }
+
+            #story1Page #story1Char,
+            #story2Page #story2Char,
+            #story2Page #story2Popup {
+                top: 28%;
+            }
+
+            #interactivePage #pressMoney {
+                top: 42%;
+                left: 28%;
+            }
+
+            #interactivePage #redCloth {
+                top: 42%;
+                left: 72%;
+            }
+
+            #interactivePage #interactiveCompleted {
+                top: 68%;
+            }
+        }
+
+        /* 响应式设计 - 针对桌面设备 */
+        @media (min-width: 1025px) {
+            .page img {
+                max-width: 70%;
+                max-height: 70%;
+            }
+
+            #loadingPage #coin {
+                top: 8%;
+            }
+
+            #loadingPage #wave {
+                top: 18%;
+            }
+
+            #initialPage #startBtn {
+                top: 68%;
+            }
+
+            #story1Page #story1Char,
+            #story2Page #story2Char,
+            #story2Page #story2Popup {
+                top: 30%;
+            }
+
+            #interactivePage #pressMoney {
+                top: 40%;
+                left: 25%;
+            }
+
+            #interactivePage #redCloth {
+                top: 40%;
+                left: 75%;
+            }
+
+            #interactivePage #interactiveCompleted {
+                top: 60%;
+            }
         }
     </style>
-    <script>
-        function showContent(sectionId) {
-            // 隐藏封面和按钮
-            document.getElementById('cover').style.display = 'none';
-            document.getElementById('coverButtonGroup').style.display = 'none';
-
-            // 显示对应的内容区域
-            document.getElementById(sectionId).style.display = 'block';
-        }
-
-        function showQuestion2() {
-            // 切换到第二个问答图片
-            document.getElementById('question1').style.display = 'none';
-            document.getElementById('question2').style.display = 'block';
-        }
-    </script>
 </head>
 <body>
-    <div class="container">
-        <!-- 封面图片 -->
-        <div id="cover">
-            <img src="img/title.png" alt="封面" class="image">
-            <!-- 封面按钮组 -->
-            <div id="coverButtonGroup" class="cover-button-group">
-                <img src="img/button.png" alt="传说故事" class="cover-button" onclick="showContent('story')">
-                <img src="img/button.png" alt="知识问答" class="cover-button" onclick="showContent('quiz')">
-                <img src="img/button.png" alt="制作压胜钱" class="cover-button" onclick="showContent('coin')">
-            </div>
-            <!-- 进入传说故事按钮 -->
-            <button class="enter-story-button" onclick="showContent('story')">点击开始</button>
-        </div>
-
-        <!-- 传说故事内容，支持滚动 -->
-        <div id="story" class="content">
-            <h1>传说故事</h1>
-            <img src="img/story1.png" alt="传说故事1" class="image">
-            <img src="img/story2.jpg" alt="传说故事2" class="image">
-        </div>
-
-        <!-- 知识问答内容 -->
-        <div id="quiz" class="content">
-            <h1>知识问答</h1>
-            <div id="question1" style="position: relative;">
-                <img src="img/question1.jpg" alt="知识问答1" class="image">
-                <div class="quiz-button-group">
-                    <div class="quiz-button" onclick="showQuestion2()">
-                        <img src="img/button.png" alt="A" width="30" height="30">
-                        <span>A</span>
-                    </div>
-                    <div class="quiz-button" onclick="showQuestion2()">
-                        <img src="img/button.png" alt="B" width="30" height="30">
-                        <span>B</span>
-                    </div>
-                    <div class="quiz-button" onclick="showQuestion2()">
-                        <img src="img/button.png" alt="C" width="30" height="30">
-                        <span>C</span>
-                    </div>
-                </div>
-            </div>
-            <div id="question2" style="display: none;">
-                <img src="img/question2.jpg" alt="知识问答2" class="image">
-            </div>
-        </div>
-
-        <!-- 制作压胜钱内容 -->
-        <div id="coin" class="content">
-            <h1>制作压胜钱</h1>
-            <img src="img/coin.png" alt="制作压胜钱" class="image">
-        </div>
+    <!-- 加载页 -->
+    <div id="loadingPage" class="page show">
+        <img id="coin" src="img/探秘压胜钱图片/加载页 掉落的铜钱.png" alt="掉落的铜钱">
+        <img id="wave" src="img/探秘压胜钱图片/加载页 水波.png" alt="水波">
+        <div id="progress">加载中...</div>
     </div>
+
+    <!-- 初始页 -->
+    <div id="initialPage" class="page">
+        
+        <img id="startBtn" src="img/探秘压胜钱图片/初始页 开始按钮.png" alt="开始按钮">
+    </div>
+
+    <!-- 引导页 -->
+    <div id="guidePage1" class="page">
+        
+    </div>
+
+    <!-- 传说故事1 -->
+    <div id="story1Page" class="page">
+        
+        <img id="story1Char" src="img/探秘压胜钱图片/传说故事1人物.png" alt="人物" style="display: none;">
+    </div>
+
+    <!-- 传说故事2 -->
+    <div id="story2Page" class="page">
+        
+        <img id="story2Char" src="img/探秘压胜钱图片/传说故事2人物.png" alt="人物" style="display: none;">
+        <img id="story2Popup" src="img/探秘压胜钱图片/传说故事2弹窗.png" alt="弹窗" style="display: none;">
+    </div>
+
+    <!-- 小互动 -->
+    <div id="interactivePage" class="page">
+        
+        <img id="pressMoney" src="img/探秘压胜钱图片/小互动 压胜钱.png" alt="压胜钱" draggable="true">
+        <img id="redCloth" src="img/探秘压胜钱图片/小互动 红帕子.png" alt="红帕子">
+        <img id="interactiveCompleted" src="img/探秘压胜钱图片/小互动 完成.png" alt="完成">
+    </div>
+
+    <!-- 分享页 -->
+    <div id="sharePage" class="page">
+        
+    </div>
+
+    <script>
+        // 页面切换功能
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('show'));
+            document.getElementById(pageId).classList.add('show');
+        }
+
+        // 加载页到初始页
+        setTimeout(() => {
+            showPage('initialPage');
+        }, 3000); // 3秒后跳转
+
+        // 初始页按钮
+        document.getElementById('startBtn').onclick = () => {
+            showPage('guidePage1');
+        };
+
+        // 引导页1跳转到传说故事1
+        document.getElementById('guidePage1').onclick = () => {
+            showPage('story1Page');
+        };
+
+        // 传说故事1显示人物并跳转到故事2
+        document.getElementById('story1Page').onclick = () => {
+            document.getElementById('story1Char').style.display = 'block';
+            setTimeout(() => showPage('story2Page'), 1000);
+        };
+
+        // 传说故事2显示人物、弹窗并跳转到小互动
+        document.getElementById('story2Page').onclick = () => {
+            if (document.getElementById('story2Char').style.display === 'none') {
+                document.getElementById('story2Char').style.display = 'block';
+            } else if (document.getElementById('story2Popup').style.display === 'none') {
+                document.getElementById('story2Popup').style.display = 'block';
+            } else {
+                showPage('interactivePage');
+            }
+        };
+
+        // 小互动拖动事件
+        let pressMoney = document.getElementById('pressMoney');
+        let redCloth = document.getElementById('redCloth');
+        pressMoney.ondragstart = (e) => e.dataTransfer.setData("text", e.target.id);
+        redCloth.ondragover = (e) => e.preventDefault();
+        redCloth.ondrop = (e) => {
+            e.preventDefault();
+            document.getElementById('pressMoney').style.display = 'none';
+            document.getElementById('redCloth').style.display = 'none';
+            document.getElementById('interactiveCompleted').style.display = 'block';
+        };
+
+        // 小互动完成后跳转到分享页
+        document.getElementById('interactiveCompleted').onclick = () => {
+            showPage('sharePage');
+        };
+    </script>
 </body>
 </html>
